@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTS Audio Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .audio-controls {
+            margin: 10px 0;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        /* Microphone Icon Styles */
+        .input-with-mic {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .text-input-with-mic {
+            width: 100%;
+            padding: 12px 50px 12px 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .text-input-with-mic:focus {
+            border-color: #007bff;
+        }
+        
+        .mic-button {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin: 0;
+        }
+        
+        .mic-button:hover {
+            background: #f0f8ff;
+            transform: scale(1.1);
+        }
+        
+        .mic-button.recording {
+            background: #ff4757;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .mic-button.recording:hover {
+            background: #ff3742;
+        }
+        
+        .mic-icon {
+            width: 20px;
+            height: 20px;
+            fill: #007bff;
+            transition: fill 0.3s ease;
+        }
+        
+        .mic-button:hover .mic-icon {
+            fill: #0056b3;
+        }
+        
+        .mic-button.recording .mic-icon {
+            fill: white;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 71, 87, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
+            }
+        }
+        
+        .mic-status {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .mic-status.recording {
+            color: #ff4757;
+            font-weight: bold;
+        }
+        
+        /* Chat Interface Styles */
+        .chat-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+        }
+        
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .chat-input-container {
+            padding: 15px 20px;
+            background: #f8f9fa;
+        }
+        
+        .chat-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 50px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            resize: none;
+            min-height: 20px;
+            max-height: 100px;
+        }
+        
+        .chat-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+        
+        .chat-mic-button {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin: 0;
+            z-index: 10;
+        }
+        
+        .chat-mic-button:hover {
+            background: rgba(0, 123, 255, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .chat-mic-button.recording {
+            background: #ff4757;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .chat-mic-button.recording:hover {
+            background: #ff3742;
+        }
+        
+        .chat-mic-icon {
+            width: 18px;
+            height: 18px;
+            fill: #007bff;
+            transition: fill 0.3s ease;
+        }
+        
+        .chat-mic-button:hover .chat-mic-icon {
+            fill: #0056b3;
+        }
+        
+        .chat-mic-button.recording .chat-mic-icon {
+            fill: white;
+        }
+        
+        .chat-send-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-send-button:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+        
+        .chat-send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .speech-status {
+            position: absolute;
+            top: -35px;
+            left: 15px;
+            background: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+        
+        .speech-status.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .speech-status.error {
+            background: #ff4757;
+        }
+        
+        .speech-status.success {
+            background: #2ed573;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 TTS Audio System Test</h1>
+        <p>Test the Text-to-Speech audio endpoints and playback functionality.</p>
+
+        <!-- Test 1: TTS Health Check -->
+        <div class="test-section">
+            <h3>1. TTS System Health Check</h3>
+            <button onclick="testTTSHealth()">Check TTS Health</button>
+            <div id="health-status"></div>
+        </div>
+
+        <!-- Test 2: Generate and Play Audio -->
+        <div class="test-section">
+            <h3>2. Generate and Play Audio</h3>
+            <div class="input-with-mic">
+                <input type="text" id="tts-text" class="text-input-with-mic" placeholder="Enter text to convert to speech or click the mic to speak" value="Hello! This is a test of the campus chatbot TTS system.">
+                <button class="mic-button" id="mic-button" onclick="toggleSpeechRecognition()" title="Click to start speech recognition">
+                    <svg class="mic-icon" viewBox="0 0 24 24">
+                        <path d="M12 2C13.1 2 14 2.9 14 4V10C14 11.1 13.1 12 12 12S10 11.1 10 10V4C10 2.9 10.9 2 12 2ZM19 10V12C19 15.9 15.9 19 12 19S5 15.9 5 12V10H7V12C7 14.8 9.2 17 12 17S17 14.8 17 12V10H19ZM11 22V20H13V22H11Z"/>
+                    </svg>
+                </button>
+            </div>
+        }
+
+        async function generateAndPlayAudio() {
+            const text = document.getElementById('tts-text').value;
+            const language = document.getElementById('tts-language').value;
+            const voice = document.getElementById('tts-voice').value;
+            const statusDiv = document.getElementById('audio-generation-status');
+            const playerDiv = document.getElementById('audio-player');
+
+            if (!text.trim()) {
+                statusDiv.innerHTML = '<div class="status error">Please enter some text!</div>';
+                return;
+            }
+
+            try {
+                statusDiv.innerHTML = '<div class="status">Generating audio...</div>';
+                
+                const response = await fetch(`${API_BASE}/api/tts/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        language: language,
+                        voice: voice
+                    })
+                });
+
+                const data = await response.json();
+                
+                statusDiv.innerHTML = `
+                    <div class="status success">
+                        <strong>Audio Generated!</strong><br>
+                        Duration: ${data.duration.toFixed(1)}s<br>
+                        Language: ${data.language}<br>
+                        Voice: ${data.voice}
+                    </div>
+                `;
+
+                // Create audio player
+                const audioUrl = `${API_BASE}${data.audio_url}`;
+                playerDiv.innerHTML = `
+                    <audio controls style="width: 100%;">
+                        <source src="${audioUrl}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <br><small>Audio URL: <a href="${audioUrl}" target="_blank">${audioUrl}</a></small>
+                `;
+
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function testSampleAudio() {
+            const statusDiv = document.getElementById('sample-audio-status');
+            const playerDiv = document.getElementById('sample-audio-player');
+
+            try {
+                const response = await fetch(`${API_BASE}/api/tts/test`);
+                const data = await response.json();
+                
+                statusDiv.innerHTML = `
+                    <div class="status success">
+                        <strong>${data.status}</strong><br>
+                        Sample Text: "${data.sample_text}"
+                    </div>
+                `;
+
+                const audioUrl = `${API_BASE}${data.test_audio_url}`;
+                playerDiv.innerHTML = `
+                    <audio controls style="width: 100%;">
+                        <source src="${audioUrl}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <br><small>Audio URL: <a href="${audioUrl}" target="_blank">${audioUrl}</a></small>
+                `;
+
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function getAvailableVoices() {
+            const voicesDiv = document.getElementById('voices-list');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/tts/voices`);
+                const data = await response.json();
+                
+                let html = '<div class="status success"><strong>Available Voices:</strong></div>';
+                
+                for (const [language, voices] of Object.entries(data.voices)) {
+                    html += `<h4>${language.toUpperCase()}</h4><ul>`;
+                    voices.forEach(voice => {
+                        html += `
+                            <li>
+                                <strong>${voice.name}</strong> (${voice.gender})
+                                <br><small>ID: ${voice.id}</small>
+                            </li>
+                        `;
+                    });
+                    html += '</ul>';
+                }
+                
+                html += `<p><small>${data.note}</small></p>`;
+                voicesDiv.innerHTML = html;
+
+            } catch (error) {
+                voicesDiv.innerHTML = `<div class="status error">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function getTTSStats() {
+            const statsDiv = document.getElementById('tts-stats');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/tts/stats`);
+                const data = await response.json();
+                
+                statsDiv.innerHTML = `
+                    <div class="status success">
+                        <strong>TTS Statistics:</strong><br>
+                        Total Files: ${data.total_files}<br>
+                        Total Size: ${data.total_size_mb} MB<br>
+                        Directory: ${data.directory_path}<br>
+                        File Types: Test(${data.file_types.test}), Sample(${data.file_types.sample}), Generated(${data.file_types.generated})
+                    </div>
+                `;
+
+            } catch (error) {
+                statsDiv.innerHTML = `<div class="status error">Error: ${error.message}</div>`;
+            }
+        }
+
+        // Auto-run health check on page load and initialize speech recognition
+        window.onload = function() {
+            testTTSHealth();
+            initializeSpeechRecognition();
+        };
+    </script>
+</body>
+</html>
