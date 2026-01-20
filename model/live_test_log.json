@@ -1,0 +1,77 @@
+{
+    "processed_input": {
+        "thread_id": "thread_001",
+        "user_id": "user_001",
+        "query": "ऑपरटग ससटम क अधययन कस शर कर",
+        "query_en": "The principle of the operate",
+        "lang": "hi"
+    },
+    "safety_result": {
+        "thread_id": "thread_001",
+        "user_id": "user_001",
+        "query": "ऑपरटग ससटम क अधययन कस शर कर",
+        "query_en": "The principle of the operate",
+        "lang": "hi",
+        "safety": {
+            "safe": true,
+            "reason": null,
+            "toxicity_score": 0.0006824852898716927,
+            "pii": false
+        }
+    },
+    "rag_output": {
+        "query": "The principle of the operate",
+        "context": [
+            "Single and multiple -bus organization of processor Datapath, Microprogrammed control unit, \nHardwired control unit, Basic concepts of pipelining, Structural hazards, Data hazards, Control \nhazards; Multi-Core Processors: Flynn’s classification, Superscalar, Vector processor, Multi-core, and \nGPU. \n \nReferences:",
+            "Single and multiple -bus organization of processor Datapath, Microprogrammed control unit, \nHardwired control unit, Basic concepts of pipelining, Structural hazards, Data hazards, Control \nhazards; Multi-Core Processors: Flynn’s classification, Superscalar, Vector processor, Multi-core, and \nGPU. \n \nReferences:",
+            "Single and multiple -bus organization of processor Datapath, Microprogrammed control unit, \nHardwired control unit, Basic concepts of pipelining, Structural hazards, Data hazards, Control \nhazards; Multi-Core Processors: Flynn’s classification, Superscalar, Vector processor, Multi-core, and \nGPU. \n \nReferences:",
+            "Keys, Key attributes of relation, Relational database, Schemas, Integrity constraints. Referential \nintegrity, Relational Algebra and Relational Calculus ; Relational algebra operators : Unary, Binary, \nSet Operations. Tuple oriented and domain oriented relational calculus and its operations ;   SQL: \nBasic SQL Query, Creating Table and Views, SQL as DML, DDL and DCL, SQL Algebraic Operations, \nJoins, Sub -Queries, Aggregate Operations, Cursors, Dynamic SQL, Integrity Constraints in SQL, \nTriggers;  Data Base Design: Introduction to Normalization, Functional dependency, Normal forms, \nDecomposition, Armstrong’s Axioms, Canonical Cover, Lossless Join & Dependency preservation \nProblems with null valued and dangling tuples, multivalued dependencies ; Transaction Processing",
+            "Keys, Key attributes of relation, Relational database, Schemas, Integrity constraints. Referential \nintegrity, Relational Algebra and Relational Calculus ; Relational algebra operators : Unary, Binary, \nSet Operations. Tuple oriented and domain oriented relational calculus and its operations ;   SQL: \nBasic SQL Query, Creating Table and Views, SQL as DML, DDL and DCL, SQL Algebraic Operations, \nJoins, Sub -Queries, Aggregate Operations, Cursors, Dynamic SQL, Integrity Constraints in SQL, \nTriggers;  Data Base Design: Introduction to Normalization, Functional dependency, Normal forms, \nDecomposition, Armstrong’s Axioms, Canonical Cover, Lossless Join & Dependency preservation \nProblems with null valued and dangling tuples, multivalued dependencies ; Transaction Processing"
+        ],
+        "metadata": [
+            {
+                "source": "C:\\Users\\ishan\\Automation\\SIH25\\RAG\\pdfs\\Syllabus-2023-onwards.pdf",
+                "creationdate": "2025-06-24T13:02:03+05:30",
+                "author": "Anita Shrotriya [MU - Jaipur]",
+                "producer": "Microsoft® Word for Microsoft 365",
+                "total_pages": 30,
+                "page": 1,
+                "creator": "Microsoft® Word for Microsoft 365",
+                "moddate": "2025-06-24T13:02:03+05:30",
+                "page_label": "2"
+            },
+            {
+                "page_label": "2",
+                "author": "Anita Shrotriya [MU - Jaipur]",
+                "producer": "Microsoft® Word for Microsoft 365",
+                "creationdate": "2025-06-24T13:02:03+05:30",
+                "total_pages": 30,
+                "creator": "Microsoft® Word for Microsoft 365",
+                "moddate": "2025-06-24T13:02:03+05:30",
+                "page": 1,
+                "source": "C:\\Users\\ishan\\Automation\\SIH25\\RAG\\pdfs\\Syllabus-2023-onwards.pdf"
+            },
+            {},
+            {
+                "producer": "Microsoft® Word for Microsoft 365",
+                "source": "C:\\Users\\ishan\\Automation\\SIH25\\RAG\\pdfs\\Syllabus-2023-onwards.pdf",
+                "creationdate": "2025-06-24T13:02:03+05:30",
+                "author": "Anita Shrotriya [MU - Jaipur]",
+                "creator": "Microsoft® Word for Microsoft 365",
+                "page": 1,
+                "total_pages": 30,
+                "page_label": "2",
+                "moddate": "2025-06-24T13:02:03+05:30"
+            },
+            {}
+        ]
+    },
+    "final_answer": "The provided context describes the operating principles for various components and concepts across two main domains:\n\n*   **Computer Architecture:** This includes the basic concepts of pipelining, the organization of single and multiple-bus processor datapaths, and the functioning of microprogrammed and hardwired control units. It also covers the principles behind multi-core processors, including Flynn's classification and types like Superscalar and Vector processors.\n*   **Database Management Systems:** This encompasses the operations of Relational Algebra and Relational Calculus, the principles of SQL queries and data manipulation, and the concepts underlying database design, such as normalization and transaction processing.\n\nTo provide a specific answer regarding \"the principle of operation,\" please specify which particular component, concept, or system you are interested in from the context.",
+    "sources": [
+        "C:\\Users\\ishan\\Automation\\SIH25\\RAG\\pdfs\\Syllabus-2023-onwards.pdf",
+        "C:\\Users\\ishan\\Automation\\SIH25\\RAG\\pdfs\\Syllabus-2023-onwards.pdf",
+        "N/A",
+        "C:\\Users\\ishan\\Automation\\SIH25\\RAG\\pdfs\\Syllabus-2023-onwards.pdf",
+        "N/A"
+    ]
+}
