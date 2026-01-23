@@ -1,0 +1,6 @@
+﻿model/api.env
+.env
+*.env
+__pycache__/
+.venv/
+node_modules/
