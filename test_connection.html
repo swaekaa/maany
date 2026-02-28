@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Connection Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .status { padding: 10px; margin: 5px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    <button onclick="testConnection()">Test Backend Connection</button>
+    <button onclick="testChatAPI()">Test Chat API</button>
+    <button onclick="clearResults()">Clear Results</button>
+    
+    <div id="results"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000';
+        
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        async function testConnection() {
+            log('Testing backend connection...', 'info');
+            
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                
+                const response = await fetch(`${API_BASE}/ping`, {
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Backend Connected: ${data.message} (v${data.version})`, 'success');
+                    log(`<pre>${JSON.stringify(data, null, 2)}</pre>`, 'info');
+                } else {
+                    log(`❌ Backend Error: HTTP ${response.status}`, 'error');
+                }
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    log('❌ Connection Timeout (5s)', 'error');
+                } else {
+                    log(`❌ Connection Failed: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        async function testChatAPI() {
+            log('Testing chat API...', 'info');
+            
+            try {
+                const testMessage = {
+                    user_id: 'test_user_html',
+                    message: 'Hello from simple HTML test',
+                    language: 'en'
+                };
+
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                
+                const response = await fetch(`${API_BASE}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testMessage),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log('✅ Chat API Working', 'success');
+                    log(`Response: ${data.response.substring(0, 100)}...`, 'info');
+                    log(`Conversation ID: ${data.conversation_id}`, 'info');
+                    log(`Sources: ${data.sources.length}`, 'info');
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ Chat API Error: HTTP ${response.status} - ${errorText}`, 'error');
+                }
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    log('❌ Chat API Timeout (10s)', 'error');
+                } else {
+                    log(`❌ Chat API Failed: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // Auto-test on load
+        window.onload = function() {
+            log('Page loaded. Backend should be running on http://localhost:8000', 'info');
+            setTimeout(testConnection, 1000);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SLCM Design System - Manipal University Jaipur */
+
+@layer base {
+  :root {
+    /* University Brand Colors */
+    --muj-orange-primary: 18 73% 41%;    /* #D35400 */
+    --muj-orange-secondary: 16 78% 52%;  /* #E67E22 */
+    --muj-orange-light: 25 95% 95%;      /* Light orange background */
+    
+    /* Core System Colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 17%;              /* #2C2C2C */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 17%;
+    --card-glass: 0 0% 100% / 0.7;       /* Glass-morphism */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 17%;
+
+    --primary: 18 73% 41%;               /* MUJ Orange */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 16 78% 52%;
+
+    --secondary: 0 0% 95%;               /* #F2F2F2 */
+    --secondary-foreground: 0 0% 17%;
+    --secondary-hover: 0 0% 92%;         /* #EAEAEA */
+
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 46%;
+
+    --accent: 212 100% 56%;              /* #1E90FF Blue for links */
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 212 100% 50%;
+
+    --student-name: 0 68% 56%;           /* #E74C3C Red accent */
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --input-focus: 18 73% 41%;
+    --ring: 18 73% 41%;
+
+    --radius: 0.75rem;
+
+    /* Glass-morphism Effects */
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 0 0% 100% / 0.2;
+    --backdrop-blur: blur(20px);
+
+    /* Gradients */
+    --gradient-orange: linear-gradient(135deg, hsl(var(--muj-orange-primary)), hsl(var(--muj-orange-secondary)));
+    --gradient-orange-light: linear-gradient(135deg, hsl(var(--muj-orange-light)), hsl(0 0% 100%));
+    --gradient-glass: linear-gradient(135deg, hsl(var(--glass-bg)), hsl(0 0% 100% / 0.4));
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -2px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1);
+    --shadow-glass: 0 8px 32px 0 hsl(0 0% 0% / 0.1);
+
+    /* Transitions */
+    --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* University Brand Colors - Dark Mode */
+    --muj-orange-light: 18 40% 15%;         /* Dark orange background for welcome banner */
+    
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+    --card-glass: 0 0% 9% / 0.8;
+    
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 18 73% 41%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 16 78% 52%;
+    
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-hover: 0 0% 20%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    
+    --accent: 212 100% 56%;
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 212 100% 50%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --input-focus: 18 73% 41%;
+    --ring: 18 73% 41%;
+    
+    --glass-bg: 0 0% 9% / 0.7;
+    --glass-border: 0 0% 100% / 0.1;
+    
+    /* Dark mode gradients */
+    --gradient-orange-light: linear-gradient(135deg, hsl(var(--muj-orange-light)), hsl(0 0% 12%));
+    
+    --student-name: 0 68% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

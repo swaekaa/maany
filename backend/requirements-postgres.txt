@@ -1,0 +1,5 @@
+# Optional PostgreSQL support
+# Install only if you need PostgreSQL database
+# For development, SQLite is used by default
+
+psycopg2-binary==2.9.9

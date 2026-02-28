@@ -1,0 +1,72 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+env/
+venv/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+.python-version
+.mypy_cache/
+.pytest_cache/
+.tox/
+.nox/
+.coverage*
+htmlcov/
+*.log
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# Vector DB (Chroma)
+# =========================
+backend/app/services/chroma_db/
+
+# =========================
+# Generated TTS Audio
+# =========================
+backend/tts_audio/
+
+# =========================
+# Local ML Models
+# =========================
+model/
+
+# =========================
+# Frontend (Node)
+# =========================
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# Lock files (optional — keep if you want reproducibility)
+# bun.lockb
+
+# =========================
+# IDE / OS
+# =========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# =========================
+# Environment files
+# =========================
+.env
+backend/app/services/api.env
